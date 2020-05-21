@@ -27,34 +27,49 @@ class ViewController: UIViewController {
         }
         let panGesture = UIPanGestureRecognizer(
             target: self,
-            action: #selector(didPanOnView))
+            action: #selector(didPanonView))
         view.addGestureRecognizer(panGesture)
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self, action: #selector(didTaponView))
+        longPressGesture.minimumPressDuration = 0.1
+        view.addGestureRecognizer(longPressGesture)
     }
     private var selectView:UIView? {
         didSet {
-            if selectView == oldValue {
+            if selectView != nil { view.bringSubviewToFront(selectView!) }
+            if oldValue === selectView {return}
+            if selectView != oldValue {
+//                view.bringSubviewToFront(selectView)
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     self.selectView?.layer.transform = CATransform3DMakeScale(3, 3, 3)
                 }, completion: nil)
-            }
-            else {
                 guard let oldValue = oldValue else {return}
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     oldValue.layer.transform = CATransform3DIdentity
                 }, completion: nil)
             }
         }
     }
-    @objc
-    private
-    func didPanOnView(_ gesture: UIPanGestureRecognizer) {
+    
+    private func getView(_ gesture:UIGestureRecognizer) -> UIView {
         let loction = gesture.location(in: view)
         let i = Int(loction.x / info.width)
         let j = Int(loction.y / info.width)
         let key = s(i,j)
-        let itemView = viewDic[key]!
-        view.bringSubviewToFront(itemView)
+        return viewDic[key]!
+    }
+    
+    @objc
+    private
+    func didPanonView(_ gesture: UIPanGestureRecognizer) {
+        let itemView = getView(gesture)
         if gesture.state == .ended {return selectView = nil}
+        selectView = itemView
+    }
+    @objc private
+    func didTaponView(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .ended {return selectView = nil}
+        let itemView = getView(gesture)
         selectView = itemView
     }
 }
