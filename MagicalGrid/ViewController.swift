@@ -8,13 +8,30 @@
 
 import UIKit
 
+struct ViewInfo {
+    var rows:Int
+    var columns:Int
+    var bound: CGRect
+    func width()-> CGFloat {
+        bound.width / CGFloat(rows)
+    }
+    func height()-> CGFloat {
+        bound.height / CGFloat(columns)
+    }
+}
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
 
 }
 
+// MARK: - private Color builder
+private func randomColor() ->UIColor {
+    let (r,g,b) = (CGFloat(drand48()),CGFloat(drand48()),CGFloat(drand48()))
+    return UIColor(red: r, green: g, blue: b, alpha: 1)
+}
