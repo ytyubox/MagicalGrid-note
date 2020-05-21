@@ -30,15 +30,32 @@ class ViewController: UIViewController {
             action: #selector(didPanOnView))
         view.addGestureRecognizer(panGesture)
     }
-    
-    @objc func didPanOnView(_ gesture: UIPanGestureRecognizer) {
+    private var selectView:UIView? {
+        didSet {
+            if selectView == oldValue {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.selectView?.layer.transform = CATransform3DMakeScale(3, 3, 3)
+                }, completion: nil)
+            }
+            else {
+                guard let oldValue = oldValue else {return}
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    oldValue.layer.transform = CATransform3DIdentity
+                }, completion: nil)
+            }
+        }
+    }
+    @objc
+    private
+    func didPanOnView(_ gesture: UIPanGestureRecognizer) {
         let loction = gesture.location(in: view)
         let i = Int(loction.x / info.width)
         let j = Int(loction.y / info.width)
         let key = s(i,j)
-        let item = viewDic[key]!
-        view.bringSubviewToFront(item)
-        
+        let itemView = viewDic[key]!
+        view.bringSubviewToFront(itemView)
+        if gesture.state == .ended {return selectView = nil}
+        selectView = itemView
     }
 }
 
