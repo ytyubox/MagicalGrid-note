@@ -24,6 +24,7 @@
 		A76774A5247690E300BD09C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A76774A8247690E300BD09C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A76774AA247690E300BD09C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A76774B0247690EE00BD09C8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +41,7 @@
 		A7677490247690E200BD09C8 = {
 			isa = PBXGroup;
 			children = (
+				A76774B0247690EE00BD09C8 /* README.md */,
 				A767749B247690E200BD09C8 /* MagicalGrid */,
 				A767749A247690E200BD09C8 /* Products */,
 			);
