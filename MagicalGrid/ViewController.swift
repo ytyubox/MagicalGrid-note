@@ -12,7 +12,7 @@ import UIKit
 class ViewController: UIViewController {
     private
     lazy var info =  ViewInfo(rows: 15, bound: view.frame)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let width = info.width
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         for j in 0 ... jMax {
             
             for i in 0...info.rows {
-               let itemView = makeItemView(i, width, j, height)
+                let itemView = makeItemView(i, width, j, height)
                 view.addSubview(itemView)
             }
         }
@@ -39,7 +39,6 @@ class ViewController: UIViewController {
             if selectView != nil { view.bringSubviewToFront(selectView!) }
             if oldValue === selectView {return}
             if selectView != oldValue {
-//                view.bringSubviewToFront(selectView)
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     self.selectView?.layer.transform = CATransform3DMakeScale(3, 3, 3)
                 }, completion: nil)
@@ -97,18 +96,18 @@ private
 var viewDic:[String: UIView] = [:]
 
 private
-  func makeItemView(_ i: Int, _ width: CGFloat,
-                    _ j: Int, _ height: CGFloat)-> UIView {
-      let item = UIView()
-      let a = s(i,j)
-      viewDic[a] = item
-      item.backgroundColor = randomColor()
-      item.frame = CGRect(
-          x: CGFloat(i) * width,
-          y: CGFloat(j) * width,
-          width: width,
-          height: height)
-      item.layer.borderWidth = 1
-      item.layer.borderColor = UIColor.black.cgColor
-      return item
-  }
+func makeItemView(_ i: Int, _ width: CGFloat,
+                  _ j: Int, _ height: CGFloat)-> UIView {
+    let item = UIView()
+    let a = s(i,j)
+    viewDic[a] = item
+    item.backgroundColor = randomColor()
+    item.frame = CGRect(
+        x: CGFloat(i) * width,
+        y: CGFloat(j) * width,
+        width: width,
+        height: height)
+    item.layer.borderWidth = 0.2
+    item.layer.borderColor = UIColor.black.cgColor
+    return item
+}
